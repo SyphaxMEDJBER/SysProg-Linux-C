@@ -12,7 +12,7 @@
 char **ligne2Argv(char* ligne );
 
 
-void afficheArgv(char** ) ;
+void afficherArgv(char** ) ;
 
 
 #endif

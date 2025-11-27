@@ -4,7 +4,7 @@
 
 #define MAX_ARG 100
 
-char **ligne2argv(char *ligne)
+char **ligne2Argv(char *ligne)
 { 
   char * li;
   char **arg;
