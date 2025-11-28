@@ -17,5 +17,7 @@ void afficherArgv(char** ) ;
 
 char *argv2Ligne(char **argv);
 
+int executer(char** argv);
+
 
 #endif
