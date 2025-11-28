@@ -14,6 +14,13 @@ int main(){
   afficherArgv(argv);
 
 
+// argv2Ligne
+  char* l=argv2Ligne(argv);
+
+  printf("argv2Ligne(argv)= %s",l);
+
+
+
   //liberation mémoire
 
   for(int i=0;argv[i] != NULL;i++){
@@ -21,6 +28,7 @@ int main(){
   }
 
   free(argv);
+  free(l);
 
   return 0;
 }

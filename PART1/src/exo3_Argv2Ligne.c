@@ -23,7 +23,7 @@ char *argv2Ligne(char **argv){
 
 
   //transformation
-  ligne[0]="\0";// <=> ligne[0]="";
+  ligne[0]='\0';// <=> ligne[0]='';
   for(i=0;argv[i]!=NULL;i++){
     strcat(ligne,argv[i]);
     if(argv[i+1]!=NULL){
