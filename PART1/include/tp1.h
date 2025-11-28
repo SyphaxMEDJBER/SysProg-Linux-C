@@ -15,4 +15,7 @@ char **ligne2Argv(char* ligne );
 void afficherArgv(char** ) ;
 
 
+char *argv2Ligne(char **argv);
+
+
 #endif
