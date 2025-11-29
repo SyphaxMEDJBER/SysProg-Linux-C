@@ -10,6 +10,7 @@
 
 
 
+
 char **ligne2Argv(char* ligne );
 
 
@@ -19,6 +20,8 @@ void afficherArgv(char** ) ;
 char *argv2Ligne(char **argv);
 
 int executer(char** argv);
+
+void miniBash();
 
 
 #endif
