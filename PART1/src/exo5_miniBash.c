@@ -1,9 +1,8 @@
 #include"../include/tp1.h"
-#define MAXCMD 500
 
 void miniBash(){
 
-  char ligne[MAXCMD];
+  char ligne[MAXLINE];
   char **argv;
 
 
@@ -16,7 +15,7 @@ void miniBash(){
     fflush(stdout);//forcer l'affichage immediat sur l'ecran 
 
 
-    if(fgets(ligne,MAXCMD,stdin)==NULL){ // si ctrl D
+    if(fgets(ligne,MAXLINE,stdin)==NULL){ // si ctrl D
       break;
     };
 

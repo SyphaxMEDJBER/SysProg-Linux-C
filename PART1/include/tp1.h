@@ -7,6 +7,9 @@
 #include<fcntl.h>
 #include<sys/wait.h>
 
+#define MAXCMD 100
+#define MAXLINE 400
+
 
 
 
@@ -22,6 +25,9 @@ char *argv2Ligne(char **argv);
 int executer(char** argv);
 
 void miniBash();
+
+
+char ***file2TabArgv(char *file,int *nbarg);
 
 
 #endif
