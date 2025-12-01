@@ -30,6 +30,6 @@ void miniBash();
 char ***file2TabArgv(char *file,int *nbarg);
 
 void execFile(char* file);
-
+int executerBatch(char **);
 
 #endif
