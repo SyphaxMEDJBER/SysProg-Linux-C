@@ -32,4 +32,6 @@ char ***file2TabArgv(char *file,int *nbarg);
 void execFile(char* file);
 int executerBatch(char **);
 
+void execFileBatch(char* file);
+
 #endif

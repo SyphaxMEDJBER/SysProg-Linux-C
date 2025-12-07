@@ -14,7 +14,7 @@ char *** file2TabArgv(char *filename,int *nbarg){
     return NULL;
   }else{
     
-    while(((*nbarg)<=MAXCMD)&&(fgets(ligne,MAXLINE,file)!=NULL)){
+    while(((*nbarg)<MAXCMD)&&(fgets(ligne,MAXLINE,file)!=NULL)){
       tab[(*nbarg)]=ligne2Argv(ligne);
       (*nbarg)++;
      
