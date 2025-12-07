@@ -53,7 +53,7 @@ void execFileBatch(char* file);
 
 typedef struct commande{
   int pid;//numero de processus dans lequel sexecute la commande 
-  int status;//son statut : -1 pas encore executé , 0 terminé , 1 en execution
+  int statut;//son statut : -1 pas encore executé , 0 terminé , 1 en execution
   int retour;//son retour EXITSTATUS
   time_t debut;//'epoch à laquelle la commande a été lancée
   time_t fin;//'epoch à laquelle la commande s'est terminée
@@ -62,6 +62,6 @@ typedef struct commande{
 
 }com;
 
-char *** file2TabCom(char *filename,int *nbcom);
+com* file2TabCom(char *filename,int *nbcom);
 
 #endif
