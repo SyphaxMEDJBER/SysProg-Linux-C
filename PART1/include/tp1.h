@@ -60,6 +60,8 @@ typedef struct commande{
   char **argv;//son tableau argv 
 
 
-}cmd;
+}com;
+
+char *** file2TabCom(char *filename,int *nbcom);
 
 #endif
