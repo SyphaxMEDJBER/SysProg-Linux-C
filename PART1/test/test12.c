@@ -1,6 +1,7 @@
 #include "../include/tp1.h"
 
+
 int main() {
-    execFile2("data.txt");
+    execFileBatchCom("data.txt");
     return 0;
 }

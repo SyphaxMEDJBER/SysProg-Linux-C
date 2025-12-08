@@ -23,7 +23,10 @@ void miniBash(){
     if(argv[0]==NULL){
       continue; // si ligne vide
     }
-    executer(argv);
+
+    int pidtmp;
+    executer(argv, &pidtmp);
+
 
     //liberation mémoire
     for(int i=0;argv[i]==NULL;i++){

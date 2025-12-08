@@ -5,7 +5,9 @@ void execFile(char* file){
 
     char ***tab=file2TabArgv(file,&nbar);
     for(int i=0;i<nbar;i++){
-      executer(tab[i]);
+      int pidtmp;
+      executer(tab[i], &pidtmp);
+
     }
 
 

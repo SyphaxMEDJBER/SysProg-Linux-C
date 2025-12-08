@@ -15,17 +15,17 @@ com * file2TabCom(char *filename,int *nbcom){
   }else{
     
     while(((*nbcom)<MAXCMD)&&(fgets(ligne,MAXLINE,file)!=NULL)){
-  char **argv;//son tableau argv 
-        tab[*nbcom].argv = ligne2Argv(ligne);
-        tab[*nbcom].pid = -1;
-        tab[*nbcom].statut = -1;
-        tab[*nbcom].retour = -1;
-        tab[*nbcom].debut = 0;
-        tab[*nbcom].fin = 0;
-      
+      char **argv;//son tableau argv 
+            tab[*nbcom].argv = ligne2Argv(ligne);
+            tab[*nbcom].pid = -1;
+            tab[*nbcom].statut = -1;
+            tab[*nbcom].retour = -1;
+            tab[*nbcom].debut = 0;
+            tab[*nbcom].fin = 0;
+          
 
-      (*nbcom)++;
-     
+          (*nbcom)++;
+        
     }
 
 

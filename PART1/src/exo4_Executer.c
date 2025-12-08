@@ -1,24 +1,24 @@
-#include"../include/tp1.h"
+#include "../include/tp1.h"
 
-int executer(char** argv){
-  int ret;
-  int pid=fork();
+int executer(char **argv, int *pidcom) {
 
-  if(pid==0){
-    execvp(argv[0],argv);
-    perror("execvp");
+    int status;
+    int pid = fork();
 
+    if (pid == 0) {
+        execvp(argv[0], argv);
+        perror("exec");
+        exit(254);
+    }
 
-  }else if(pid>0){
-    printf("en attente d'execution:  \n");
-    wait(&ret);
-    printf("execution terminée,code= %d",WEXITSTATUS(ret));
+    if (pid < 0) {
+        perror("fork");
+        return 255;
+    }
 
-  }else{
-    perror("fork");
-    return 255;
-  }
+    *pidcom = pid;     // pid du fils
 
-  return WEXITSTATUS(ret);
+    wait(&status);     // attendre le fils
 
+    return WEXITSTATUS(status);
 }

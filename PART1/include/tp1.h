@@ -22,7 +22,7 @@ void afficherArgv(char** ) ;
 
 char *argv2Ligne(char **argv);
 
-int executer(char** argv);
+int executer(char **argv, int *pidcom);
 
 void miniBash();
 
@@ -63,5 +63,14 @@ typedef struct commande{
 }com;
 
 com* file2TabCom(char *filename,int *nbcom);
+
+com* file2TabCom(char *filename,int *nbcom);
+
+void execFile2(char *file);            
+void execFileBatchCom(char *file);       
+void execFileBatchLimite(char *file, int N);  
+
+
+
 
 #endif
