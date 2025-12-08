@@ -1,3 +1,5 @@
 ls -l
 ls
-git add .
+echo hiii
+sleep 10
+echo hiii2

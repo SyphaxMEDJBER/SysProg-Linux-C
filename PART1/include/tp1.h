@@ -6,6 +6,8 @@
 #include<unistd.h>
 #include<fcntl.h>
 #include<sys/wait.h>
+#include <time.h>
+
 
 #define MAXCMD 100
 #define MAXLINE 400

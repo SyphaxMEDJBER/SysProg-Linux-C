@@ -1,5 +1,4 @@
 #include "../include/tp1.h"
-#include <time.h>
 
 void execFileBatchCom(char *file) {
 
@@ -34,7 +33,7 @@ void execFileBatchCom(char *file) {
         time_t fin; 
         time(&fin);
 
-        // retrouver quelle commande est terminée
+        //  quelle commande est terminée
         for (int i = 0; i < nb; i++) {
 
             if (tab[i].pid == pid) {

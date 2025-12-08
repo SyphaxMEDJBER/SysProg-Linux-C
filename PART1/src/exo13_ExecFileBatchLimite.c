@@ -12,7 +12,7 @@ void execFileBatchLimite(char *file, int N) {
     int status;
 
     // Lancer jusqu'à N commandes au début
-    while (lance < nb && en_cours < N) {
+    while (lance < nb && en_cours < N) {//tant que il reste des commandes non executées et le nbr de processus actif <N
 
         time(&tab[lance].debut);
         tab[lance].statut = 1;
@@ -30,7 +30,7 @@ void execFileBatchLimite(char *file, int N) {
         lance++;
     }
 
-    // Pendant qu'il reste des commandes à terminer
+    // tant que  il reste des commandes à terminer
     while (en_cours > 0) {
 
         int pidf = wait(&status);   // attend UNE commande
