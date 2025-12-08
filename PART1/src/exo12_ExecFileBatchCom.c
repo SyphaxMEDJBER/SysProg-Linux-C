@@ -1,5 +1,4 @@
 #include "../include/tp1.h"
-#include <time.h>
 
 void execFileBatchCom(char *file) {
 
