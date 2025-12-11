@@ -2,42 +2,33 @@
 
 char *argv2Ligne(char **argv){
 
-    char *ligne;
-    size_t taille=0;
+    char *ligne;                       // Contiendra la ligne reconstruite
+    size_t taille=0;                   // Taille mémoire à allouer
     int i=0;
 
-
-
-    //calculer la taille a allouer
-  for(i=0;argv[i]!=NULL;i++){
-    taille+=strlen(argv[i])+1;  //+1 pour l'espace ou \0
-  }
-
-
-  //allocation mémoire
-  ligne=malloc(taille* sizeof(char));
-  if(ligne==NULL){
-    perror("malloc");
-    exit(1);
-  }
-
-
-  //transformation
-  ligne[0]='\0';// <=> ligne[0]='';
-  for(i=0;argv[i]!=NULL;i++){
-    strcat(ligne,argv[i]);
-    if(argv[i+1]!=NULL){
-      strcat(ligne," ");
+    // Calcul de la taille totale nécessaire pour la chaîne finale
+    // On additionne la longueur de chaque argument + 1 (pour espace ou '\0')
+    for(i=0; argv[i]!=NULL; i++){
+        taille += strlen(argv[i]) + 1;
     }
 
-  }
+    // Allocation mémoire de la ligne
+    ligne = malloc(taille * sizeof(char));
+    if(ligne == NULL){
+        perror("malloc");              // Affiche l’erreur d’allocation
+        exit(1);
+    }
 
+    // Construction de la chaîne finale
+    ligne[0] = '\0';                   // Initialise la chaîne vide
 
+    for(i=0; argv[i]!=NULL; i++){
+        strcat(ligne, argv[i]);        // Ajout de l’argument courant
 
+        if(argv[i+1] != NULL){         // Ajout d’un espace seulement si un argument suit
+            strcat(ligne, " ");
+        }
+    }
 
-  return ligne;
-
-
-
+    return ligne;                      // Retourne la ligne reconstruite
 }
-

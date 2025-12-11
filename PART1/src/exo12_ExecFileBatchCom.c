@@ -2,65 +2,65 @@
 
 void execFileBatchCom(char *file) {
 
-    int nb;
-    com *tab = file2TabCom(file, &nb);
+    int nb;  // Nombre total de commandes
+    com *tab = file2TabCom(file, &nb);        // Lecture des commandes dans la structure com
 
-    int status;
-    int total = 0;
+    int status;  // Statut de terminaison d’un fils
+    int total = 0;    // Temps total cumulé
 
-    //  LANCER TOUTES LES COMMANDES EN PARALLÈLE
+    //  --- LANCEMENT DE TOUTES LES COMMANDES EN PARALLÈLE ---
     for (int i = 0; i < nb; i++) {
 
-        time(&tab[i].debut);
-        tab[i].statut = 1;
+        time(&tab[i].debut);   // Enregistre l'instant du lancement
+        tab[i].statut = 1;  // Commande en cours
 
-        int pid = fork();
-        tab[i].pid = pid;
+        int pid = fork();   // Création du processus fils
+        tab[i].pid = pid;  // Stocke le PID du processus associé
 
-        if (pid == 0) {
-            execvp(tab[i].argv[0], tab[i].argv);
-            perror("exec");
-            exit(254);
+        if (pid == 0) {    // --- PROCESSUS FILS ---
+            execvp(tab[i].argv[0], tab[i].argv); // Exécute la commande
+            perror("exec");   // Si exec échoue
+            exit(254);   // Code d'erreur exec
         }
     }
 
-    //  À CHAQUE FIN DE COMMANDE → RAPPORT
-    int restant = nb;      // combien il reste de commandes
+    //  --- TRAITEMENT DES COMMANDES TERMINÉES UNE PAR UNE ---
+    int restant = nb;  // Nombre de commandes encore actives
 
     while (restant > 0) {
 
-        int pid = wait(&status);     // attend 1 commande
+        int pid = wait(&status); // Attend qu'un fils se termine
         time_t fin; 
-        time(&fin);
+        time(&fin);  // Capture l’instant exact de fin
 
-        //  quelle commande est terminée
+        // Recherche de la commande correspondant au PID terminé
         for (int i = 0; i < nb; i++) {
 
-            if (tab[i].pid == pid) {
+            if (tab[i].pid == pid) {          // On a trouvé la commande terminée
 
-                tab[i].statut = 0;
-                tab[i].retour = WEXITSTATUS(status);
-                tab[i].fin = fin;
+                tab[i].statut = 0;            // Statut = terminé
+                tab[i].retour = WEXITSTATUS(status);  // Code retour réel
+                tab[i].fin = fin;             // Timestamp de fin
 
-                long duree = tab[i].fin - tab[i].debut;
-                total += duree;
+                long duree = tab[i].fin - tab[i].debut; // Durée de la commande
+                total += duree;               // Ajout au temps total
 
-                // RAPPORT IMMÉDIAT
+                // --- RAPPORT IMMÉDIAT ---
                 printf("%s : %d %d %ld %ld %ld\n",
-                       tab[i].argv[0],
-                       tab[i].pid,
-                       tab[i].retour,
-                       tab[i].debut,
-                       tab[i].fin,
-                       duree);
+                       tab[i].argv[0],       // Nom de la commande
+                       tab[i].pid,           // PID
+                       tab[i].retour,        // Code retour
+                       tab[i].debut,         // Epoch début
+                       tab[i].fin,           // Epoch fin
+                       duree);               // Durée
 
-                restant--;
+                restant--;                    // Une commande en moins à attendre
                 break;
             }
         }
     }
 
-    //  RAPPORT FINAL
+    //  --- RAPPORT FINAL COMPLET ---
     printf("FIN\n");
 
     for (int i = 0; i < nb; i++) {
@@ -75,5 +75,5 @@ void execFileBatchCom(char *file) {
                duree);
     }
 
-    printf("temps total : %d\n", total);
+    printf("temps total : %d\n", total);  // Temps cumulé de toutes les commandes
 }
