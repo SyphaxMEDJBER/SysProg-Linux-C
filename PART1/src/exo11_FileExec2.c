@@ -3,46 +3,48 @@
 
 void execFile2(char *file) {
 
-    int nb;
-    com *tab = file2TabCom(file, &nb);
-    int status;
-    int total = 0;
+    int nb;                                  // Nombre total de commandes
+    com *tab = file2TabCom(file, &nb);       // Lecture des commandes dans une structure com
+    int status;                              // Statut de fin pour wait()
+    int total = 0;                           // Accumulateur du temps total d’exécution
 
     for (int i = 0; i < nb; i++) {
 
-        time(&tab[i].debut);//stok l'instant precis ou la comande commence dans tab[i].debut   
-        tab[i].statut = 1;//en cours
+        time(&tab[i].debut);                 // Enregistre l'instant exact de lancement
+        tab[i].statut = 1;                   // 1 = commande en cours d’exécution
 
-        int pid = fork();//fis execution de la com
-        tab[i].pid = pid;//le proceccus qui execute la com
+        int pid = fork();                    // Création du processus fils
+        tab[i].pid = pid;                    // Stocke le PID associé à la commande
 
-        if (pid == 0) {
-            execvp(tab[i].argv[0], tab[i].argv);
-            perror("exec");
-            exit(254);
+        if (pid == 0) {                      // --- PROCESSUS FILS ---
+            execvp(tab[i].argv[0], tab[i].argv);  // Exécute la commande
+            perror("exec");                  // Si exec échoue, message d’erreur
+            exit(254);                       // Code d'échec exec
         }
 
-        wait(&status);
+        wait(&status);                       // --- PROCESSUS PÈRE ---
+                                              // Attend la fin du fils
 
-        tab[i].statut = 0;
-        tab[i].retour = WEXITSTATUS(status);
-        time(&tab[i].fin);
+        tab[i].statut = 0;                   // 0 = commande terminée
+        tab[i].retour = WEXITSTATUS(status); // Code de retour réel du programme exécuté
+        time(&tab[i].fin);                   // Timestamp exact de fin d’exécution
 
-        total += (tab[i].fin - tab[i].debut);
+        total += (tab[i].fin - tab[i].debut); // Ajout de la durée au total
     }
 
     printf("FIN\n");
 
+    // Affichage du rapport pour chaque commande
     for (int i = 0; i < nb; i++) {
-        long duree = tab[i].fin - tab[i].debut;
+        long duree = tab[i].fin - tab[i].debut;   // Durée d'exécution de la commande
         printf("%s : %d %d %ld %ld %ld\n",
-               tab[i].argv[0],
-               tab[i].pid,
-               tab[i].retour,
-               tab[i].debut,
-               tab[i].fin,
-               duree);
+               tab[i].argv[0],                    // Nom de la commande exécutée
+               tab[i].pid,                        // PID du processus
+               tab[i].retour,                     // Valeur de retour
+               tab[i].debut,                      // Epoch début
+               tab[i].fin,                        // Epoch fin
+               duree);                            // Durée d’exécution
     }
 
-    printf("temps total : %d\n", total);
+    printf("temps total : %d\n", total);          // Temps cumulé de toutes les commandes
 }
